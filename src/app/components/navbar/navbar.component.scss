@@ -34,6 +34,24 @@ nav {
           color: var(--primary-blue);
         }
       }
+      &:not(.logo) {
+        position: relative;
+        width: auto;
+        &::after {
+          content: "";
+          position: absolute;
+          top: 100%;
+          left: 0;
+          width: 100%;
+          height: 0.1rem;
+          transform: scaleX(0);
+          background-color: var(--primary-blue);
+          transition: 0.2s ease-in-out;
+        }
+        &:hover::after, &.active::after {
+          transform: scale(1);
+        }
+      }
     }
   }
   div.navRight {
@@ -47,6 +65,9 @@ nav {
       transition: all 0.2s ease-in-out;
       &:hover {
         background-color: var(--secondary-blue);
+      }
+      &.active {
+        display: none;
       }
     }
   }

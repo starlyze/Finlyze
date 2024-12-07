@@ -32,6 +32,7 @@ main {
     height: 2rem;
   }
   h1 {
+    font-weight: 500;
     margin-top: 0;
   }
   form {
@@ -63,52 +64,57 @@ main {
         }
       }
     }
-    label {
-      cursor: pointer;
+    div.remember-forgot {
       display: flex;
-      width: fit-content;
       align-items: center;
-      font-weight: 200;
-      div {
-        position: relative;
+      justify-content: space-between;
+      label {
+        cursor: pointer;
         display: flex;
-        margin-right: 0.6rem;
-        border-radius: 0.3rem;
-        input {
-          height: 100%;
-          width: 100%;
-          visibility: hidden;
-          &:checked~span {
-            background-color: var(--secondary-blue);
+        width: fit-content;
+        align-items: center;
+        font-weight: 200;
+        div {
+          position: relative;
+          display: flex;
+          margin-right: 0.6rem;
+          border-radius: 0.3rem;
+          input {
+            height: 100%;
+            width: 100%;
+            visibility: hidden;
+            &:checked~span {
+              background-color: var(--secondary-blue);
+            }
+            &:checked~span::after {
+              display: block;
+            }
           }
-          &:checked~span::after {
-            display: block;
-          }
-        }
-        span {
-          z-index: -1;
-          position: absolute;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          box-sizing: border-box;
-          display: block;
-          height: 100%;
-          width: 100%;
-          background-color: transparent;
-          border: 1px solid var(--primary-blue);
-          border-radius: inherit;
-          &::after {
-            content: "";
+          span {
+            z-index: -1;
             position: absolute;
-            display: none;
-            left: 35%;
-            top: 13%;
-            width: 25%;
-            height: 50%;
-            border: solid white;
-            border-width: 0 0.1rem 0.1rem 0;
-            transform: rotate(45deg);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-sizing: border-box;
+            display: block;
+            height: 100%;
+            width: 100%;
+            background-color: transparent;
+            border: 1px solid var(--primary-blue);
+            border-radius: inherit;
+            &::after {
+              content: "";
+              position: absolute;
+              display: none;
+              left: 35%;
+              top: 13%;
+              width: 25%;
+              height: 50%;
+              border: solid white;
+              border-width: 0 0.1rem 0.1rem 0;
+              transform: rotate(45deg);
+            }
           }
         }
       }
@@ -149,11 +155,6 @@ main {
       &:hover {
         color: var(--primary-blue);
       }
-    }
-    div.forgot {
-      display: flex;
-      justify-content: flex-end;
-      width: 100%;
     }
     div.signup {
       width: 100%;
