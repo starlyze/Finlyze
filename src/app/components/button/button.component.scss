@@ -1,0 +1,28 @@
+button {
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid var(--primary-blue);
+  padding: 1rem;
+  border-radius: 1rem;
+  font-size: 1.2rem;
+  color: var(--text);
+  width: 100%;
+  transition: all 0.2s ease-in-out;
+  &:hover {
+    background-color: var(--secondary-blue);
+  }
+  &.google {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-color: var(--text-dark);
+    gap: 0.8rem;
+    svg {
+      min-width: 1.5rem;
+      min-height: 1.5rem;
+    }
+    &:hover {
+      background-color: rgba(white, 0.1);
+    }
+  }
+}

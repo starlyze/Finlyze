@@ -1,0 +1,26 @@
+div {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  width: fit-content;
+  font-weight: 200;
+  margin-bottom: 0.25rem;
+}
+
+input {
+  font-size: 1.2rem;
+  width: 100%;
+  box-sizing: border-box;
+  color: var(--text);
+  height: 3rem;
+  border-radius: 1rem;
+  padding: 0 1rem;
+  border: none;
+  outline: none;
+  background-color: rgba(white, 0.1);
+  &:focus {
+    border: 1px solid var(--primary-blue);
+  }
+}

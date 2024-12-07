@@ -1,5 +1,4 @@
 main {
-  color: var(--text);
   position: absolute;
   top: 50%;
   left: 50%;
@@ -41,56 +40,6 @@ main {
     gap: 1rem;
     width: 100%;
     font-size: 1.2rem;
-    div.text {
-      display: flex;
-      flex-direction: column;
-      label {
-        width: fit-content;
-        font-weight: 200;
-        margin-bottom: 0.25rem;
-      }
-      input {
-        font-size: inherit;
-        color: inherit;
-        box-sizing: border-box;
-        height: 3rem;
-        border-radius: 1rem;
-        padding: 0 1rem;
-        border: none;
-        outline: none;
-        background-color: rgba(white, 0.1);
-        &:focus {
-          border: 1px solid var(--primary-blue);
-        }
-      }
-    }
-    button {
-      cursor: pointer;
-      background-color: transparent;
-      border: 1px solid var(--primary-blue);
-      padding: 1rem;
-      border-radius: 1rem;
-      font-size: 1.2rem;
-      color: inherit;
-      transition: all 0.2s ease-in-out;
-      &:hover {
-        background-color: var(--secondary-blue);
-      }
-      &.google {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-color: var(--text-dark);
-        gap: 0.8rem;
-        svg {
-          min-width: 1.5rem;
-          min-height: 1.5rem;
-        }
-        &:hover {
-          background-color: rgba(white, 0.1);
-        }
-      }
-    }
     a {
       text-decoration: none;
       color: var(--text-dark);
