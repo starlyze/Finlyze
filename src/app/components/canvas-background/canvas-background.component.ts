@@ -85,19 +85,19 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
     return `
     #define PI 3.14159265359
 
-    #define AMP_1 1.7
+    #define AMP_1 1.0
     #define FRE_1 0.5
     #define SPE_1 0.2
 
-    #define AMP_2 0.4
+    #define AMP_2 1.0
     #define FRE_2 0.6
     #define SPE_2 0.3
 
     uniform float u_time;
-    varying vec3 pos;
+    out vec3 pos;
 
     float random(in vec2 st) {
-        return fract(sin(dot(st.xy, vec2(12.9898, 78.233)))*43758.5453123);
+        return fract(sin(dot(st.xy, vec2(12.9898, 78.233)))*43758.5453);
     }
 
     float noise(in vec2 st) {
@@ -107,7 +107,6 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
         float b = random(i + vec2(1.0, 0.0));
         float c = random(i + vec2(0.0, 1.0));
         float d = random(i + vec2(1.0, 1.0));
-
         vec2 u = f*f*(3.0-2.0*f);
         return mix(a, b, u.x)+(c-a)*u.y*(1.0-u.x)+(d-b)*u.x*u.y;
     }
@@ -116,12 +115,8 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
         gl_PointSize = 1.5;
         pos = position;
         pos.z += noise(pos.xy * FRE_1 + u_time * SPE_1) * AMP_1;
-        pos.z += noise(mat2(cos(PI / 4.0), -sin(PI / 4.0), sin(PI / 4.0), -cos(PI / 4.0)) * pos.yx * FRE_2 - u_time * SPE_2 * 0.6) * AMP_2;
-        // pos.x += sin(pos.x + u_time * SPE_1 / FRE_1) * AMP_1;
-        // pos.y += sin(pos.y + u_time * SPE_2 / FRE_2) * AMP_2;
-
-        vec4 model = modelViewMatrix * vec4(pos, 1.0);
-        gl_Position = projectionMatrix * model;
+        pos.z += noise(mat2(cos(PI / 2.0), -sin(PI / 2.0), sin(PI / 2.0), -cos(PI / 2.0)) * pos.yx * FRE_2 - u_time * SPE_2) * AMP_2;
+        gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
     }`
   }
 
@@ -132,8 +127,7 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
     #endif
 
     uniform vec2 u_resolution;
-    varying vec3 pos;
-
+    in vec3 pos;
     void main() {
         float st = gl_FragCoord.y/u_resolution.y;
         vec3 color = mix(vec3(1, 1, 1), vec3(0.3176470588235294, 0.7764705882352941, 0.8784313725490196), st+0.1*pos.z);
@@ -147,7 +141,7 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
     this.camera = new THREE.PerspectiveCamera(45, this.container.offsetWidth/this.container.offsetHeight, 0.1, 1000);
     this.camera.position.z = 10;
     this.camera.position.y = 4;
-    this.camera.lookAt(new THREE.Vector3(0, 0, 1.5));
+    this.camera.lookAt(new THREE.Vector3(0, 0, 1.1));
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.setClearColor(0x000000, 0);
