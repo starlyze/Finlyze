@@ -10,7 +10,7 @@ main {
   box-sizing: border-box;
   width: min(50%, 35rem);
   border-radius: 1.5rem;
-  &:before {
+  &::before {
     content: '';
     z-index: -1;
     border-radius: inherit;
@@ -55,10 +55,52 @@ main {
         }
       }
     }
-    div.remember {
+    label {
+      display: flex;
+      width: fit-content;
+      align-items: center;
       font-weight: 200;
-      input {
-
+      div {
+        position: relative;
+        display: flex;
+        margin-left: 0.5rem;
+        input[type=checkbox] {
+          height: 1.2rem;
+          width: 1.2rem;
+          visibility: hidden;
+          &:checked~span {
+            background-color: var(--secondary-blue);
+          }
+          &:checked~span::after {
+            display: block;
+          }
+        }
+        span {
+          z-index: -1;
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          box-sizing: border-box;
+          display: block;
+          height: 1.4rem;
+          width: 1.4rem;
+          background-color: transparent;
+          border: 1px solid var(--primary-blue);
+          border-radius: 0.3rem;
+          &::after {
+            content: "";
+            position: absolute;
+            display: none;
+            left: 30%;
+            top: 7%;
+            width: 32%;
+            height: 64%;
+            border: solid white;
+            border-width: 0 0.1rem 0.1rem 0;
+            transform: rotate(45deg);
+          }
+        }
       }
     }
     button {
