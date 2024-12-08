@@ -2,6 +2,7 @@ import User from '../models/userModel';
 import bcrypt from "bcrypt";
 
 const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
 
 export const validateSignup = async (data: any) => {
   const errors: any = {};
@@ -25,8 +26,6 @@ export const validateSignup = async (data: any) => {
       errors.server = "Internal Server Error";
     }
   }
-  const passwordRegex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
   if (!data.password || typeof data.password !== 'string') {
     errors.password = 'Password is required and must be a string.';
   } else if (!passwordRegex.test(data.password)) {
@@ -68,4 +67,39 @@ export const validateSignin = async (data: any) => {
   result.valid = Object.keys(errors).length === 0;
   result.errors = errors;
   return result;
+}
+
+export const validateForgotPassword = async (data: any) => {
+  const errors: any = {};
+  const result: any = {};
+  if (!data.email || typeof data.email !== 'string') {
+    errors.email = 'Email is required and must be a string.';
+  } else if (!emailRegex.test(data.email)) {
+    errors.email = 'Invalid email format.';
+  } else {
+    try {
+      result.user = await User.findOne({ email: data.email });
+      if (!result.user) errors.email = "No account is registered with this email.";
+    } catch (error) {
+      errors.server = "Internal Server Error";
+    }
+  }
+  result.valid = Object.keys(errors).length === 0;
+  result.errors = errors;
+  return result;
+}
+
+export const validateChangePassword = (data: any) => {
+  const errors: any = {};
+  if (!data.password || typeof data.password !== 'string') {
+    errors.password = 'Password is required and must be a string.';
+  } else if (!passwordRegex.test(data.password)) {
+    errors.password = 'Password must be at least 8 characters long and include at least one uppercase letter, one lowercase letter, one number, and one special character.';
+  }
+  if (!data.confirmpassword || typeof data.confirmpassword !== 'string') {
+    errors.confirmpassword = 'All input fields are required and must be strings.';
+  } else if (data.password !== data.confirmpassword) {
+    errors.confirmpassword = 'Passwords are not equal.';
+  }
+  return { valid: Object.keys(errors).length === 0, errors };
 }
