@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/FinTrack.iml" filepath="$PROJECT_DIR$/.idea/FinTrack.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/Finlyze.iml" filepath="$PROJECT_DIR$/.idea/Finlyze.iml" />
     </modules>
   </component>
 </project>

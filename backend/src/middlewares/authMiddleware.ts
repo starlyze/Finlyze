@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken';
 import {jwtSecret} from '../config/secrets';
 
-module.exports = (req: any , res: any, next: any) => {
-  const token = req.headers.authorization;
+const authenticateToken =  (req: any , res: any, next: any) => {
+  const authHeader = req.headers.authorization;
+  const token = authHeader && authHeader.split(' ')[1];
   if (!token) {
     return res.status(401).json({ error: 'No token provided' });
   }
@@ -10,6 +11,6 @@ module.exports = (req: any , res: any, next: any) => {
     req.user = jwt.verify(token, jwtSecret);
     next();
   } catch (err) {
-    return res.status(401).json({ error: 'No token provided' });
+    return res.status(401).json({ error: 'Invalid or expired token.' });
   }
 }

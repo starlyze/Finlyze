@@ -1,4 +1,8 @@
+require('dotenv').config();
 import {Secret} from "jsonwebtoken";
 
 export const jwtSecret = process.env.JWT_SECRET as Secret;
 export const mongoURI = process.env.MONGO_URI;
+export const PORT = process.env.PORT;
+export const frontendURL = process.env.FRONTEND_URL;
+export const mailerPassword = process.env.MAILER_PASSWORD;
