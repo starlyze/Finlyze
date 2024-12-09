@@ -1,18 +1,18 @@
 <app-canvas-background/>
 <main>
   <h1>Sign In</h1>
-  <form action="">
-    <app-text-field type="text">
+  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <app-text-field [form]="signinForm" type="text" name="email">
       Email
     </app-text-field>
-    <app-text-field type="password">
+    <app-text-field [form]="signinForm" type="password" name="password">
       Password
     </app-text-field>
     <div class="remember">
-      <app-checkbox>
+      <app-checkbox [form]="signinForm" name="remember">
         Remember me?
       </app-checkbox>
-      <a routerLink="/forgot">Forgot password?</a>
+      <a routerLink="/forgot-password">Forgot password?</a>
     </div>
     <app-button type="submit">
       Sign In

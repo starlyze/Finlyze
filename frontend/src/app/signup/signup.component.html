@@ -1,17 +1,17 @@
 <app-canvas-background/>
 <main>
   <h1>Sign Up</h1>
-  <form action="">
-    <app-text-field type="text">
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <app-text-field [form]="signupForm" type="text" name="username">
       Username
     </app-text-field>
-    <app-text-field type="text">
+    <app-text-field [form]="signupForm" type="text" name="email">
       Email
     </app-text-field>
-    <app-text-field type="password">
+    <app-text-field [form]="signupForm" type="password" name="password">
       Password
     </app-text-field>
-    <app-text-field type="password">
+    <app-text-field [form]="signupForm" type="password" name="confirmPassword">
       Confirm Password
     </app-text-field>
     <app-button type="submit">

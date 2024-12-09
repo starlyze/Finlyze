@@ -1,4 +1,4 @@
-<div>
-  <label *ngIf="label" for="text-field"><ng-content/></label>
-  <input id="text-field" type="{{type()}}" />
+<div [formGroup]="form">
+  <label [for]="name"><ng-content/></label>
+  <input [id]="name" [type]="type" [formControlName]="name" />
 </div>

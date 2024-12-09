@@ -1,6 +1,6 @@
-<label for="checkbox">
-  <div>
-    <input id="checkbox" type="checkbox">
+<label [for]="name">
+  <div [formGroup]="form">
+    <input [id]="name" type="checkbox" [formControlName]="name">
     <span></span>
   </div>
   <ng-content/>
