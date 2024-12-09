@@ -1,9 +1,15 @@
 import bcrypt from 'bcrypt';
 import {validateChangePassword, validateForgotPassword, validateSignin, validateSignup} from '../utils/validators';
-import {frontendURL, jwtSecret} from "../config/secrets";
+import {
+  frontendURL,
+  googleAuthClientId, googleAuthClientSecret,
+  googleAuthRedirectUri,
+  jwtSecret,
+} from "../config/secrets";
 import User from '../models/userModel';
 import {sendMail} from "../utils/sendMail";
 import jwt, {JwtPayload} from "jsonwebtoken";
+import axios from "axios";
 
 const saltRounds = 10;
 
@@ -101,5 +107,32 @@ export const changePassword = async (req: any, res: any) => {
     res.status(200).json({ message: 'Successfully changed password' });
   } catch (error: any) {
     res.status(400).json({ message: 'Error during change password', error: error.message });
+  }
+}
+
+export const googleSignin = (req: any, res: any) => {
+  const url = `https://accounts.google.com/o/oauth/v2/auth?client_id=${googleAuthClientId}&redirect_uri=${googleAuthRedirectUri}&response_type=code&scope=profile email`;
+  res.redirect(url);
+}
+
+export const googleCallback = async (req: any, res: any) => {
+  const { code } = req.query;
+  try {
+    const { data } = await axios.post('<https://oauth2.googleapis.com/token>', {
+      client_id: googleAuthClientId,
+      client_secret: googleAuthClientSecret,
+      code: code,
+      redirect_uri: googleAuthRedirectUri,
+      grant_type: 'authorization_code'
+    });
+    const { access_token, id_token } = data;
+    const { data: profile } = await axios.get('<https://www.googleapis.com/oauth2/v1/userinfo>', {
+      headers: { Authorization: `Bearer ${access_token}` },
+    });
+    console.log(profile);
+    res.redirect('/dashboard');
+  } catch (error) {
+    console.error(error);
+    res.redirect('/login');
   }
 }
