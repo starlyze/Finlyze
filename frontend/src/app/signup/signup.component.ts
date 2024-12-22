@@ -64,4 +64,14 @@ export class SignupComponent {
       }
     })
   }
+  onGoogleSignin() {
+    this.accountService.onGoogleSignin().subscribe({
+      next: (res: any) => {
+        window.location.href = res.url;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
+  }
 }

@@ -80,7 +80,14 @@ export class SigninComponent implements OnInit {
       }
     })
   }
-  onVerify() {
-    this.router.navigateByUrl('/verify');
+  onGoogleSignin() {
+    this.accountService.onGoogleSignin().subscribe({
+      next: (res: any) => {
+        window.location.href = res.url;
+      },
+      error: (error) => {
+        console.log(error);
+      }
+    })
   }
 }

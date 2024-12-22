@@ -52,4 +52,11 @@ export class AccountService {
       })
     )
   }
+  onGoogleSignin(): Observable<any> {
+    return this.http.get('http://localhost:4200/api/auth/google').pipe(
+      catchError((error: HttpErrorResponse): Observable<never> => {
+        return throwError(() => error.error);
+      })
+    )
+  }
 }
