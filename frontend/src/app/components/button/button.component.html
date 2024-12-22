@@ -1,3 +1,11 @@
-<button class="{{theme()}}" type="{{type()}}">
-  <ng-content/>
+<button [class]="[theme, loading?'loading':'']" [type]="type" [disabled]="loading">
+  <ng-container *ngIf="loading;else content">
+    <svg viewBox="25 25 50 50">
+      <circle cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
+    </svg>
+  </ng-container>
+  <ng-template #content>
+    <ng-content/>
+  </ng-template>
 </button>
+

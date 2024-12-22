@@ -1,28 +1,61 @@
 button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
   cursor: pointer;
   background-color: transparent;
   border: 1px solid var(--primary-blue);
-  padding: 1rem;
   border-radius: 1rem;
   font-size: 1.2rem;
   color: var(--text);
+  height: 3.6rem;
   width: 100%;
   transition: all 0.2s ease-in-out;
-  &:hover {
+  &:hover, &.loading {
     background-color: var(--secondary-blue);
   }
   &.google {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     border-color: var(--text-dark);
     gap: 0.8rem;
     svg {
       min-width: 1.5rem;
       min-height: 1.5rem;
     }
-    &:hover {
+    &:hover, &.loading {
       background-color: rgba(white, 0.1);
     }
+  }
+}
+svg {
+  animation: rotate 1.3s linear infinite;
+  height: 1.5rem;
+  width: 1.5rem;
+  circle {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+    animation: dash 2s ease-in-out infinite;
+    stroke-linecap: round;
+    stroke-width: 0.2rem;
+    stroke: var(--text);
+  }
+}
+@keyframes rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes dash {
+  0% {
+    stroke-dasharray: 1, 200;
+    stroke-dashoffset: 0;
+  }
+  50% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -35px;
+  }
+  100% {
+    stroke-dasharray: 89, 200;
+    stroke-dashoffset: -124px;
   }
 }

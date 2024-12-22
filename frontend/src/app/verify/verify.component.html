@@ -1,0 +1,16 @@
+<app-canvas-background/>
+<main>
+  <h1>Click the link in your email to verify your account</h1>
+  <h3>
+    If you did not receive an email, check your spam folder and click the button below
+  </h3>
+  <div class="error" *ngIf="error">
+    {{ error }}
+  </div>
+  <div class="success" *ngIf="success">
+    Email successfully sent
+  </div>
+  <app-button [loading]="loading" (click)="requestVerification()" >
+    Resend email
+  </app-button>
+</main>

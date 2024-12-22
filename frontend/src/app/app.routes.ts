@@ -6,6 +6,8 @@ import {AboutComponent} from "./about/about.component";
 import {SignupComponent} from "./signup/signup.component";
 import {ForgotPasswordComponent} from "./forgot-password/forgot-password.component";
 import {ChangePasswordComponent} from "./change-password/change-password.component";
+import {DashboardComponent} from "./dashboard/dashboard.component";
+import {VerifyComponent} from "./verify/verify.component";
 
 export const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -14,5 +16,7 @@ export const routes: Routes = [
   { path: 'product', component: ProductComponent },
   { path: 'about', component: AboutComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
-  { path: 'change-password', component: ChangePasswordComponent }
+  { path: 'change-password', component: ChangePasswordComponent },
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'verify', component: VerifyComponent },
 ];

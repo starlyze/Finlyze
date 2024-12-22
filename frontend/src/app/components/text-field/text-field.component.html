@@ -1,4 +1,24 @@
-<div [formGroup]="form">
-  <label [for]="name"><ng-content/></label>
-  <input [id]="name" [type]="type" [formControlName]="name" />
+<div class="container" *ngIf="type==='password';else text">
+  <label class="label" [for]="name"><ng-container *ngTemplateOutlet="content"/></label>
+  <div class="password" [formGroup]="form">
+    <input [id]="name" [type]="visible?'text':'password'" [formControlName]="name" />
+    <div (click)="changeVisibility()">
+      <svg [class]="visible?'':'active'" width="182" height="138" viewBox="0 0 182 138" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M26 4L156 134M6 69C26 49 46 19 91 19C136 19 156 49 176 69C156 89 136 119 91 119C46 119 26 89 6 69Z" stroke-width="8" stroke-linecap="round"/>
+        <path d="M68.3726 46.3726C62.3714 52.3737 59 60.5131 59 69C59 77.4869 62.3714 85.6263 68.3726 91.6274C74.3737 97.6286 82.5131 101 91 101C99.4869 101 107.626 97.6286 113.627 91.6274L91 69L68.3726 46.3726Z" stroke-width="8"/>
+      </svg>
+      <svg [class]="visible?'active':''" width="182" height="138" viewBox="0 0 182 108" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M91 4C46 3.99999 26 34 6 54C26 74 46 104 91 104C136 104 156 74 176 54C156 34 136 3.99999 91 4Z" stroke-width="8"/>
+        <circle cx="91" cy="54" r="32" stroke-width="8"/>
+      </svg>
+    </div>
+  </div>
 </div>
+<ng-template [formGroup]="form" #text>
+  <label class="label" [for]="name"><ng-container *ngTemplateOutlet="content"/></label>
+  <input class="text" [id]="name" [type]="type" [formControlName]="name" />
+</ng-template>
+
+<ng-template #content>
+  <ng-content/>
+</ng-template>

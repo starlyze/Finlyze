@@ -1,15 +1,16 @@
-div {
+div.container {
   display: flex;
   flex-direction: column;
 }
-
 label {
+  display: block;
   width: fit-content;
   font-weight: 200;
   margin-bottom: 0.25rem;
 }
 
-input {
+
+input.text {
   font-size: 1.2rem;
   width: 100%;
   box-sizing: border-box;
@@ -22,5 +23,46 @@ input {
   background-color: rgba(white, 0.1);
   &:focus {
     border: 1px solid var(--primary-blue);
+  }
+}
+
+div.password {
+  box-sizing: border-box;
+  display: flex;
+  background-color: rgba(white, 0.1);
+  width: 100%;
+  height: 3rem;
+  border-radius: 1rem;
+  overflow: hidden;
+  border: 1px solid transparent;
+  input {
+    font-size: 1.2rem;
+    color: var(--text);
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    border: none;
+    outline: none;
+    padding-left: 1rem;
+    background-color: transparent;
+  }
+  div {
+    display: flex;
+    height: 100%;
+    width: fit-content;
+    align-items: center;
+    cursor: pointer;
+    svg {
+      stroke: var(--text-dark);
+      padding: 0 1rem;
+      height: 1.2rem;
+      width: auto;
+      &.active {
+        display: none;
+      }
+    }
+  }
+  &:focus-within {
+    border-color: var(--primary-blue);
   }
 }

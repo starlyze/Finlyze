@@ -10,6 +10,10 @@
   --text-dark: #cccccc;
   --primary-blue: #51C6E0;
   --secondary-blue: #37798350;
+  --primary-red: #e43f3f;
+  --secondary-red: #e43f3f50;
+  --primary-green: #4fc844;
+  --secondary-green: #4fc84450;
   --primary-font: 'Inter';
   background-color: var(--bg);
   font-family: var(--primary-font), sans-serif;
@@ -19,6 +23,19 @@
 html, body {
   width: 100%;
   margin: 0;
+}
+
+h1 {
+  font-weight: 500;
+  margin-top: 0;
+}
+h2 {
+  font-size: 1.4rem;
+  font-weight: 400;
+}
+h3 {
+  font-size: 1.2rem;
+  font-weight: 300;
 }
 
 ::-webkit-scrollbar {

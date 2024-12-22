@@ -5,15 +5,30 @@
     <app-text-field [form]="signupForm" type="text" name="username">
       Username
     </app-text-field>
+    <div class="error" *ngIf="usernameError">
+      {{ usernameError }}
+    </div>
     <app-text-field [form]="signupForm" type="text" name="email">
       Email
     </app-text-field>
+    <div class="error" *ngIf="emailError">
+      {{ emailError }}
+    </div>
     <app-text-field [form]="signupForm" type="password" name="password">
       Password
     </app-text-field>
+    <div class="error" *ngIf="passwordError">
+      {{ passwordError }}
+    </div>
     <app-text-field [form]="signupForm" type="password" name="confirmPassword">
       Confirm Password
     </app-text-field>
+    <div class="error" *ngIf="confirmPasswordError">
+      {{ confirmPasswordError }}
+    </div>
+    <div class="error" *ngIf="serverError">
+      {{ serverError }}
+    </div>
     <app-button type="submit">
       Sign Up
     </app-button>

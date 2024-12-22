@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, HostListener} from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {RouterLink, RouterLinkActive} from "@angular/router";
 
@@ -14,5 +14,10 @@ import {RouterLink, RouterLinkActive} from "@angular/router";
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-
+  atTop: boolean = true;
+  @HostListener('window:scroll', ['$event'])
+  onScroll(event: Event): void {
+    const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+    this.atTop = scrollTop == 0;
+  }
 }

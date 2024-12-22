@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/
 import {CanvasBackgroundComponent} from "../components/canvas-background/canvas-background.component";
 import {TextFieldComponent} from "../components/text-field/text-field.component";
 import {ButtonComponent} from "../components/button/button.component";
+import {NgIf} from "@angular/common";
+import {AccountService} from "../services/account.service";
 
 @Component({
   selector: 'app-forgot',
@@ -11,20 +13,40 @@ import {ButtonComponent} from "../components/button/button.component";
     CanvasBackgroundComponent,
     ReactiveFormsModule,
     TextFieldComponent,
-    ButtonComponent
+    ButtonComponent,
+    NgIf
   ],
   templateUrl: './forgot-password.component.html',
   styleUrl: './forgot-password.component.scss'
 })
 export class ForgotPasswordComponent implements OnInit {
   forgotPasswordForm: FormGroup;
-  constructor(private fb: FormBuilder) {}
+  loading: boolean = false;
+  sent: boolean = false;
+  emailError: string;
+  serverError: string;
+  constructor(private fb: FormBuilder, private accountService: AccountService) {}
   ngOnInit() {
     this.forgotPasswordForm = this.fb.group({
       email: ['', Validators.required],
     })
   }
   onSubmit() {
-    console.log(this.forgotPasswordForm.value);
+    this.loading = true;
+    this.sent = false;
+    this.emailError = '';
+    this.serverError = '';
+    this.accountService.onForgotPassword(this.forgotPasswordForm.value.email).subscribe({
+      next: () => {
+        this.sent = true;
+        this.loading = false;
+      },
+      error: (error: any) => {
+        this.emailError = error && error.errors.email;
+        this.serverError = error && error.errors.server;
+        this.loading = false;
+        this.forgotPasswordForm.reset();
+      }
+    })
   }
 }

@@ -1,6 +1,6 @@
 import express from "express";
 import {connectDB} from "./config/db";
-import {PORT} from './config/secrets'
+import {PORT, sendgridApiKey} from './config/secrets'
 import authRoutes from "./routes/authRoutes";
 import userDataRoutes from "./routes/userDataRoutes";
 

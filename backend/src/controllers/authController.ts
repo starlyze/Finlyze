@@ -10,6 +10,8 @@ import User from '../models/userModel';
 import {sendMail} from "../utils/sendMail";
 import jwt, {JwtPayload} from "jsonwebtoken";
 import axios from "axios";
+import verifyTemplate from '../views/verify'
+import changePasswordTemplate from "../views/change-password";
 
 const saltRounds = 10;
 
@@ -23,21 +25,43 @@ export const signup = async (req: any, res: any) => {
       email: req.body.email,
       password: hash
     });
-    const savedUser = await newUser.save();
-    const verificationToken = jwt.sign({
-      id: savedUser.id,
-      email: savedUser.email,
-    }, jwtSecret, { expiresIn: '1d'});
-    const verificationLink = `${frontendURL}/verify-email?token=${verificationToken}`;
-    await sendMail(req.body.email, {
-      subject: 'Finlyze email verification',
-      html: verificationLink,
-    });
-    res.status(201).json({ message: 'Email verification sent' });
+    await newUser.save();
+    // const savedUser = await newUser.save();
+    // const verificationToken = jwt.sign({
+    //   id: savedUser.id,
+    //   email: savedUser.email,
+    // }, jwtSecret, { expiresIn: '1d'});
+    // const emailTemplate = verifyTemplate(frontendURL!, verificationToken);
+    // await sendMail(req.body.email, {
+    //   subject: 'Finlyze email verification',
+    //   html: emailTemplate,
+    // });
+    res.status(201).json({ message: 'Redirect to verify email' });
   } catch (error: any) {
     res.status(500).json({ message: 'Error during sign-up', error: error.message });
   }
 };
+
+export const sendVerificationEmail = async (req: any, res: any) => {
+  try {
+    const user = await User.findOne({email: req.body.email});
+    if (user) {
+      if (user.verified) res.status(401).json({ message: 'Email is already verified' });
+      const verificationToken = jwt.sign({
+        id: user.id,
+        email: user.email,
+      }, jwtSecret, { expiresIn: '1d' });
+      const emailTemplate = verifyTemplate(frontendURL!, verificationToken);
+      await sendMail(req.body.email, {
+        subject: 'Finlyze email verification',
+        html: emailTemplate
+      })
+      res.status(201).json({ message: 'Email successfully sent' });
+    }
+  } catch (error: any) {
+    res.status(500).json({ message: 'Invalid email address', error: error.message });
+  }
+}
 
 export const verifyEmail = async (req: any, res: any) => {
   try {
@@ -84,10 +108,10 @@ export const forgotPassword = async (req: any, res: any) => {
       id: user.id,
       email: user.email,
     }, jwtSecret, {expiresIn: '1d'});
-    const changePasswordLink = `${frontendURL}/change-password?token=${forgotPasswordToken}`;
+    const emailTemplate = changePasswordTemplate(frontendURL!, forgotPasswordToken);
     await sendMail(req.body.email, {
       subject: 'Finlyze change password',
-      html: changePasswordLink,
+      html: emailTemplate,
     });
     res.status(201).json({ message: 'Request to change password sent.' });
   } catch (error: any) {
@@ -106,7 +130,7 @@ export const changePassword = async (req: any, res: any) => {
     await user.save();
     res.status(200).json({ message: 'Successfully changed password' });
   } catch (error: any) {
-    res.status(400).json({ message: 'Error during change password', error: error.message });
+    res.status(400).json({ message: 'Invalid request', error: "Token is invalid or expired" });
   }
 }
 
