@@ -5,8 +5,8 @@ import {TextFieldComponent} from "../components/text-field/text-field.component"
 import {CheckboxComponent} from "../components/checkbox/checkbox.component";
 import {ButtonComponent} from "../components/button/button.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {AccountService} from "../services/account.service";
-import {HttpClientModule} from "@angular/common/http";
+import {AuthService} from "../services/auth.service";
+import {} from "@angular/common/http";
 import {NgIf} from "@angular/common";
 
 @Component({
@@ -20,7 +20,6 @@ import {NgIf} from "@angular/common";
     CheckboxComponent,
     ButtonComponent,
     ReactiveFormsModule,
-    HttpClientModule,
     NgIf
   ],
   templateUrl: './signin.component.html',
@@ -35,7 +34,7 @@ export class SigninComponent implements OnInit {
   verifyError: boolean = false;
   loading: boolean = false;
   verified: boolean = false;
-  constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) {
+  constructor(private fb: FormBuilder, private accountService: AuthService, private router: Router) {
     this.signinForm = this.fb.group({
       email: ['', Validators.required],
       password: ['', Validators.required],

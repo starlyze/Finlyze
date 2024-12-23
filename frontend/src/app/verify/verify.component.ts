@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {CanvasBackgroundComponent} from "../components/canvas-background/canvas-background.component";
 import {ButtonComponent} from "../components/button/button.component";
-import {AccountService} from "../services/account.service";
+import {AuthService} from "../services/auth.service";
 import {Router} from "@angular/router";
 import {NgIf} from "@angular/common";
 
@@ -20,7 +20,7 @@ export class VerifyComponent {
   error: string | null = null;
   loading: boolean = false;
   success: boolean = false;
-  constructor(private accountService: AccountService, private router: Router) {
+  constructor(private accountService: AuthService, private router: Router) {
     this.requestVerification();
   }
   requestVerification(): void {

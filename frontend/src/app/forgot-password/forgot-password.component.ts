@@ -4,7 +4,7 @@ import {CanvasBackgroundComponent} from "../components/canvas-background/canvas-
 import {TextFieldComponent} from "../components/text-field/text-field.component";
 import {ButtonComponent} from "../components/button/button.component";
 import {NgIf} from "@angular/common";
-import {AccountService} from "../services/account.service";
+import {AuthService} from "../services/auth.service";
 
 @Component({
   selector: 'app-forgot',
@@ -25,7 +25,7 @@ export class ForgotPasswordComponent implements OnInit {
   sent: boolean = false;
   emailError: string;
   serverError: string;
-  constructor(private fb: FormBuilder, private accountService: AccountService) {}
+  constructor(private fb: FormBuilder, private accountService: AuthService) {}
   ngOnInit() {
     this.forgotPasswordForm = this.fb.group({
       email: ['', Validators.required],

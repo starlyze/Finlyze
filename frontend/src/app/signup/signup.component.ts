@@ -4,8 +4,8 @@ import {Router, RouterLink} from "@angular/router";
 import {TextFieldComponent} from "../components/text-field/text-field.component";
 import {ButtonComponent} from "../components/button/button.component";
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {HttpClientModule} from "@angular/common/http";
-import {AccountService} from "../services/account.service";
+import {} from "@angular/common/http";
+import {AuthService} from "../services/auth.service";
 import {NgIf} from "@angular/common";
 
 @Component({
@@ -17,7 +17,6 @@ import {NgIf} from "@angular/common";
     TextFieldComponent,
     ButtonComponent,
     ReactiveFormsModule,
-    HttpClientModule,
     NgIf
   ],
   templateUrl: './signup.component.html',
@@ -31,7 +30,7 @@ export class SignupComponent {
   emailError: string | null = null;
   confirmPasswordError: string | null = null;
 
-  constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) {
+  constructor(private fb: FormBuilder, private accountService: AuthService, private router: Router) {
     this.signupForm = this.fb.group({
       username: ['', Validators.required],
       email: ['', Validators.required],

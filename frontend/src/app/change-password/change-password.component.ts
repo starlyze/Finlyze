@@ -3,7 +3,7 @@ import {CanvasBackgroundComponent} from "../components/canvas-background/canvas-
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {TextFieldComponent} from "../components/text-field/text-field.component";
 import {ButtonComponent} from "../components/button/button.component";
-import {AccountService} from "../services/account.service";
+import {AuthService} from "../services/auth.service";
 import {Router, RouterLink} from "@angular/router";
 import {NgIf} from "@angular/common";
 
@@ -29,7 +29,7 @@ export class ChangePasswordComponent implements OnInit {
   loading: boolean = false;
   changed: boolean = false;
 
-  constructor(private fb: FormBuilder, private accountService: AccountService, private router: Router) {
+  constructor(private fb: FormBuilder, private accountService: AuthService, private router: Router) {
     this.changePasswordForm = this.fb.group({
       password: ['', Validators.required],
       confirmPassword: ['', Validators.required]

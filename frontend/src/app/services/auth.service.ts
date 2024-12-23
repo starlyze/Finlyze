@@ -1,26 +1,29 @@
-import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
-import {HttpClient, HttpErrorResponse} from "@angular/common/http";
+import {inject, Inject, Injectable, PLATFORM_ID } from '@angular/core';
+import { HttpClient, HttpErrorResponse } from "@angular/common/http";
 import {catchError, firstValueFrom, map, Observable, of, tap, throwError} from "rxjs";
 import {isPlatformBrowser} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
 })
-export class AccountService {
+export class AuthService {
   id: string | null = null;
   email: string | null = null;
   username: string | null = null;
   authenticated: boolean = false;
 
-  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: any) {}
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: any) {
+  }
 
   async isAuthenticated(): Promise<boolean> {
     if (!isPlatformBrowser(this.platformId)) {
       console.log("bad");
-      return false;
     }
     const jwt = document.cookie.split(';').find((cookie) => cookie.trim().startsWith('auth_jwt='));
-    if (!jwt) return false;
+    if (!jwt) {
+      console.log("cookie doesnt exist")
+      return false;
+    }
     try {
       return await firstValueFrom(
         this.http.get(`http://localhost:4200/api/auth/authenticate?token=${jwt}`).pipe(
