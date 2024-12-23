@@ -64,7 +64,6 @@ export class SigninComponent implements OnInit {
     this.accountService.email = this.signinForm.value.email;
     this.accountService.onSignin(this.signinForm.value).subscribe({
       next: async (res: any) => {
-        localStorage.setItem('token', res.token);
         await this.router.navigateByUrl('/dashboard');
       },
       error: (error) => {

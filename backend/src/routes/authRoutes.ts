@@ -7,7 +7,7 @@ import {
   forgotPassword,
   changePassword,
   googleSignin,
-  googleCallback, sendVerificationEmail
+  googleCallback, sendVerificationEmail, fetchUserData
 } from "../controllers/authController";
 
 const router = express.Router();
@@ -20,5 +20,6 @@ router.post('/api/auth/change-password', changePassword);
 router.post('/api/auth/verify-request', sendVerificationEmail);
 router.get('/api/auth/google', googleSignin);
 router.get('/api/auth/google/callback', googleCallback);
+router.get('/api/auth/authenticate', fetchUserData);
 
 export default router;

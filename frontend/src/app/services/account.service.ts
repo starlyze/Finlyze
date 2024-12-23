@@ -1,15 +1,49 @@
-import { Injectable } from '@angular/core';
+import {Inject, Injectable, PLATFORM_ID} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from "@angular/common/http";
-import {catchError, Observable, throwError} from "rxjs";
+import {catchError, firstValueFrom, map, Observable, of, tap, throwError} from "rxjs";
+import {isPlatformBrowser} from "@angular/common";
 
 @Injectable({
   providedIn: 'root'
 })
 export class AccountService {
+  id: string | null = null;
   email: string | null = null;
   username: string | null = null;
+  authenticated: boolean = false;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, @Inject(PLATFORM_ID) private platformId: any) {}
+
+  async isAuthenticated(): Promise<boolean> {
+    if (!isPlatformBrowser(this.platformId)) {
+      console.log("bad");
+      return false;
+    }
+    const jwt = document.cookie.split(';').find((cookie) => cookie.trim().startsWith('auth_jwt='));
+    if (!jwt) return false;
+    try {
+      return await firstValueFrom(
+        this.http.get(`http://localhost:4200/api/auth/authenticate?token=${jwt}`).pipe(
+          tap((data: any) => {
+            this.authenticated = true;
+            this.id = data.id;
+            this.email = data.email;
+            this.username = data.username;
+          }),
+          map(() => true),
+          catchError((error: any) => {
+            console.log(error);
+            this.authenticated = false;
+            return of(false);
+          })
+        ));
+    } catch (error: any) {
+      this.authenticated = false;
+      console.log(error);
+      return false;
+    }
+  }
+
   onSignin(object: any): Observable<any> {
     return this.http.post('http://localhost:4200/api/auth/signin', object).pipe(
       catchError((error: HttpErrorResponse): Observable<never> => {

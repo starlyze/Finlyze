@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Router} from "@angular/router";
+import {AccountService} from "../services/account.service";
 
 @Component({
   selector: 'app-dashboard',
@@ -8,5 +10,9 @@ import { Component } from '@angular/core';
   styleUrl: './dashboard.component.scss'
 })
 export class DashboardComponent {
+  @Input() token: string;
 
+  constructor(private router: Router, private accountService: AccountService) {
+
+  }
 }

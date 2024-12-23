@@ -16,6 +16,12 @@ import changePasswordTemplate from "../views/change-password";
 
 
 const saltRounds = 10;
+const cookieConfig = {
+  httpOnly: true,
+  sameSite: "none",
+  secure: true,
+  maxAge: 365 * 24 * 60 * 60 * 1000
+}
 
 export const signup = async (req: any, res: any) => {
   const {valid, errors} = await validateSignup(req.body);
@@ -81,9 +87,9 @@ export const signin = async (req: any, res: any) => {
       email: user.email,
       username: user.username,
     }, jwtSecret, { expiresIn: req.body.remember?'10d':'1d' });
+    res.cookie('auth_jwt', token, cookieConfig);
     res.status(200).json({
       message: 'Logged in successfully.',
-      token: token,
       user: {
         id: user.id,
         email: user.email,
@@ -134,7 +140,6 @@ export const changePassword = async (req: any, res: any) => {
 }
 
 export const googleSignin = (req: any, res: any) => {
-  res.header('Access-Control-Allow-Origin', frontendURL);
   res.header('Referrer-Policy', 'no-referrer-when-downgrade');
   const oAuth2Client = new OAuth2Client(
     googleAuthClientId,
@@ -166,7 +171,6 @@ export const googleCallback = async (req: any, res: any) => {
       }
     });
     const userData = userResponse.data;
-    console.log(userData);
     const existingUser = await User.findOne({ email: userData.email })
     if (existingUser) {
       const token = jwt.sign({
@@ -174,7 +178,8 @@ export const googleCallback = async (req: any, res: any) => {
         email: existingUser.email,
         username: existingUser.username,
       }, jwtSecret, { expiresIn: '5d' });
-      res.redirect(`${frontendURL}/dashboard?token=${token}`);
+      res.cookie('auth_jwt', token, cookieConfig);
+      res.redirect(`${frontendURL}/dashboard`);
     } else {
       const newUser = new User({
         username: userData.name,
@@ -187,10 +192,23 @@ export const googleCallback = async (req: any, res: any) => {
         email: newUser.email,
         username: newUser.username,
       }, jwtSecret, { expiresIn: '5d' });
-      res.redirect(`${frontendURL}/dashboard?token=${token}`);
+      res.cookie('auth_jwt', token, cookieConfig);
+      res.redirect(`${frontendURL}/dashboard`);
     }
   } catch (error: any) {
     console.error(error);
     res.redirect(`${frontendURL}/signin`);
+  }
+}
+
+export const fetchUserData = async (req: any, res: any) => {
+  const token = req.query.token;
+  try {
+    const decoded = jwt.verify(token, jwtSecret) as JwtPayload;
+    const user = await User.findById(decoded.id);
+    if (!user) res.status(401).json({ error: 'Invalid or expired token' });
+    else res.status(200).json(decoded);
+  } catch (error: any) {
+    res.status(200).json({error: error});
   }
 }
