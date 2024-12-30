@@ -56,6 +56,8 @@ export const validateSignin = async (data: any) => {
       result.user = await User.findOne({ email: data.email });
       if (!result.user) {
         errors.email = "No account is registered with this email.";
+      } else if (!result.user.password) {
+        errors.email = "This account is signed in with Google."
       } else if (!result.user.verified) {
         errors.verify = true;
       } else if (!result.user.password) {

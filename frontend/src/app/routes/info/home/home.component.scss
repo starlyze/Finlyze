@@ -1,0 +1,41 @@
+@import 'variables.scss';
+@import 'mixins.scss';
+
+main {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 10rem;
+  @include XS {
+    padding: 0 2rem;
+  }
+  @include SM {
+    padding: 0 3rem;
+  }
+}
+div.title {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: max(100vh, 40rem);
+  justify-content: center;
+  padding: 0;
+  margin: 0;
+  text-align: center;
+  h1 {
+    margin: 0;
+    font-size: 3.5rem;
+    @include SM {
+      font-size: 4.5rem;
+    }
+    @include MD {
+      font-size: 5rem;
+    }
+  }
+  h2 {
+    font-weight: 300;
+    font-size: 2rem;
+  }
+  span {
+    color: $primary-blue;
+  }
+}

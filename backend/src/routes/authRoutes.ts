@@ -20,6 +20,6 @@ router.post('/api/auth/change-password', changePassword);
 router.post('/api/auth/verify-request', sendVerificationEmail);
 router.get('/api/auth/google', googleSignin);
 router.get('/api/auth/google/callback', googleCallback);
-router.get('/api/auth/authenticate', fetchUserData);
+router.get('/api/auth/user', fetchUserData);
 
 export default router;

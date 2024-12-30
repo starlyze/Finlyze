@@ -1,3 +1,4 @@
+@import 'variables.scss';
 label {
   cursor: pointer;
   display: flex;
@@ -14,7 +15,7 @@ label {
       width: 100%;
       visibility: hidden;
       &:checked~span {
-        background-color: var(--secondary-blue);
+        background-color: $secondary-blue;
       }
       &:checked~span::after {
         display: block;
@@ -31,7 +32,7 @@ label {
       height: 100%;
       width: 100%;
       background-color: transparent;
-      border: 1px solid var(--primary-blue);
+      border: 1px solid $primary-blue;
       border-radius: inherit;
       &::after {
         content: "";

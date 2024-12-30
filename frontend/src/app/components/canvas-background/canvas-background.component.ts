@@ -59,6 +59,8 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
   onResize(): void {
     if (this.camera && this.renderer && this.container && this.geometry && this.material) {
       this.camera.aspect = this.container.offsetWidth / this.container.offsetHeight;
+      this.camera.position.y = this.container.offsetHeight/170;
+      this.camera.position.z = this.container.offsetHeight/100;
       this.camera.updateProjectionMatrix();
       this.renderer.setSize(this.container.offsetWidth, this.container.offsetHeight);
       if (this.uniforms.u_resolution) {
@@ -66,7 +68,7 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
         this.uniforms.u_resolution.value.y = this.container.offsetHeight * window.devicePixelRatio;
       }
       this.geometry = new THREE.PlaneGeometry(
-        this.container.offsetWidth/50,
+        this.container.offsetWidth/55,
         13,
         this.container.offsetWidth/5,
         130
@@ -130,7 +132,7 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
     in vec3 pos;
     void main() {
         float st = gl_FragCoord.y/u_resolution.y;
-        vec3 color = mix(vec3(1, 1, 1), vec3(0.3176470588235294, 0.7764705882352941, 0.8784313725490196), st+0.1*pos.z);
+        vec3 color = mix(vec3(1, 1, 1), vec3(0.3176470588235294, 0.7764705882352941, 0.8784313725490196), 0.3*st+0.3*pos.z);
         gl_FragColor = vec4(color, 1.0);
     }`
   }
@@ -139,9 +141,9 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
     this.container = this.canvasContainer.nativeElement;
     this.scene = new THREE.Scene();
     this.camera = new THREE.PerspectiveCamera(45, this.container.offsetWidth/this.container.offsetHeight, 0.1, 1000);
-    this.camera.position.z = 10;
-    this.camera.position.y = 4;
-    this.camera.lookAt(new THREE.Vector3(0, 0, 1.1));
+    this.camera.position.z = this.container.offsetHeight/100;
+    this.camera.position.y = this.container.offsetHeight/170;
+    this.camera.lookAt(new THREE.Vector3(0, 0, 0));
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.setClearColor(0x000000, 0);
@@ -161,7 +163,7 @@ export class CanvasBackgroundComponent implements OnInit, OnDestroy {
       }
     };
     this.geometry = new THREE.PlaneGeometry(
-      this.container.offsetWidth/50,
+      this.container.offsetWidth/55,
       13,
       this.container.offsetWidth/5,
       130

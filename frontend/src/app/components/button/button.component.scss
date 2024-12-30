@@ -1,3 +1,5 @@
+@import 'variables.scss';
+
 button {
   display: flex;
   align-items: center;
@@ -5,18 +7,18 @@ button {
   box-sizing: border-box;
   cursor: pointer;
   background-color: transparent;
-  border: 1px solid var(--primary-blue);
+  border: 1px solid $primary-blue;
   border-radius: 1rem;
   font-size: 1.2rem;
-  color: var(--text);
+  color: $text;
   height: 3.6rem;
   width: 100%;
   transition: all 0.2s ease-in-out;
   &:hover, &.loading {
-    background-color: var(--secondary-blue);
+    background-color: $secondary-blue;
   }
   &.google {
-    border-color: var(--text-dark);
+    border-color: $text-dark;
     gap: 0.8rem;
     svg {
       min-width: 1.5rem;
@@ -37,7 +39,7 @@ svg {
     animation: dash 2s ease-in-out infinite;
     stroke-linecap: round;
     stroke-width: 0.2rem;
-    stroke: var(--text);
+    stroke: $text;
   }
 }
 @keyframes rotate {

@@ -17,10 +17,10 @@ import changePasswordTemplate from "../views/change-password";
 
 const saltRounds = 10;
 const cookieConfig = {
-  httpOnly: true,
-  sameSite: "none",
+  httpOnly: false,
+  sameSite: "strict",
   secure: true,
-  maxAge: 365 * 24 * 60 * 60 * 1000
+  maxAge: 5 * 24 * 60 * 60 * 1000
 }
 
 export const signup = async (req: any, res: any) => {
@@ -95,7 +95,7 @@ export const signin = async (req: any, res: any) => {
         email: user.email,
         username: user.username,
       }
-    })
+    });
   } catch (error: any) {
     res.status(400).json({ message: 'Error during sign-in', error: error.message });
   }
@@ -184,7 +184,6 @@ export const googleCallback = async (req: any, res: any) => {
       const newUser = new User({
         username: userData.name,
         email: userData.email,
-        verified: true
       });
       await newUser.save();
       const token = jwt.sign({
@@ -209,6 +208,6 @@ export const fetchUserData = async (req: any, res: any) => {
     if (!user) res.status(401).json({ error: 'Invalid or expired token' });
     else res.status(200).json(decoded);
   } catch (error: any) {
-    res.status(200).json({error: error});
+    res.status(401).json({error: error});
   }
 }

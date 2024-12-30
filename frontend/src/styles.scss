@@ -1,23 +1,27 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'variables.scss';
+@import 'mixins.scss';
+
 @font-face {
   font-family: 'Inter';
   src: url('assets/fonts/Inter.ttf');
 }
 
 :root {
-  --bg: #1c2022;
-  --text: #fff;
-  --text-dark: #cccccc;
-  --primary-blue: #51C6E0;
-  --secondary-blue: #37798350;
-  --primary-red: #e43f3f;
-  --secondary-red: #e43f3f50;
-  --primary-green: #4fc844;
-  --secondary-green: #4fc84450;
-  --primary-font: 'Inter';
-  background-color: var(--bg);
-  font-family: var(--primary-font), sans-serif;
-  color: var(--text);
+  background-color: $bg;
+  font-family: $primary-font;
+  color: $text;
+  @include XS {
+    font-size: 13px;
+  }
+  @include SM {
+    font-size: 14px;
+  }
+  @include MD {
+    font-size: 15px;
+  }
+  @include LG {
+    font-size: 16px;
+  }
 }
 
 html, body {
@@ -26,6 +30,7 @@ html, body {
 }
 
 h1 {
+  font-size: 2.5rem;
   font-weight: 500;
   margin-top: 0;
 }
@@ -42,7 +47,7 @@ h3 {
   width: 0.6em;
 }
 ::-webkit-scrollbar-track {
-  background-color: var(--bg);
+  background-color: $bg;
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 0.3em;
