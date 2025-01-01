@@ -1,1 +1,45 @@
-<p>user-layout works!</p>
+<main>
+  <nav>
+    <div>
+      <a class="logo" routerLink="/dashboard">
+        <img ngSrc="assets/images/finlyzeFin.svg" alt="logo" height="80" width="103">
+        <span>Fin</span>lyze
+      </a>
+      <a routerLink="/dashboard" routerLinkActive="active" ariaCurrentWhenActive="page" [routerLinkActiveOptions]="{exact: true}">
+        <img ngSrc="assets/images/homeIcon.svg" alt="home" width="54" height="54">
+        <span>Home</span>
+      </a>
+      <a routerLink="/dashboard/investments" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <img ngSrc="assets/images/investmentsIcon.svg" alt="investments" width="54" height="54">
+        <span>Investments</span>
+      </a>
+      <a routerLink="/dashboard/transactions" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <img ngSrc="assets/images/transactionsIcon.svg" alt="transactions" width="50" height="45">
+        <span>Transactions</span>
+      </a>
+      <a routerLink="/dashboard/goals" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <img ngSrc="assets/images/goalsIcon.svg" alt="goals" width="42" height="56">
+        <span>Goals</span>
+      </a>
+      <a routerLink="/dashboard/budget" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <img ngSrc="assets/images/budgetIcon.svg" alt="budget" width="48" height="54">
+        <span>Budget</span>
+      </a>
+      <a routerLink="/dashboard/profile" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <img ngSrc="assets/images/profileIcon.svg" alt="profile" width="48" height="55">
+        <span>Profile</span>
+      </a>
+      <a routerLink="/dashboard/settings" routerLinkActive="active" ariaCurrentWhenActive="page">
+        <img ngSrc="assets/images/settingsIcon.svg" alt="settings" width="50" height="50">
+        <span>Settings</span>
+      </a>
+    </div>
+    <button (click)="onSignOut()">
+      Sign Out
+    </button>
+  </nav>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</main>
+

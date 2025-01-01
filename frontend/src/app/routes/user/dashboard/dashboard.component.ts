@@ -1,11 +1,14 @@
 import {Component, Input} from '@angular/core';
 import {Router} from "@angular/router";
 import {AuthService} from "../../../services/auth.service";
+import {GraphComponent} from "../../../components/graph/graph.component";
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [],
+  imports: [
+    GraphComponent
+  ],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
