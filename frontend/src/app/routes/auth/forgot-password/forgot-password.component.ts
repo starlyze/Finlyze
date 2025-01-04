@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
-import {CanvasBackgroundComponent} from "../../../components/canvas-background/canvas-background.component";
+import {BackgroundComponent} from "../../../components/background/background.component";
 import {TextFieldComponent} from "../../../components/text-field/text-field.component";
 import {ButtonComponent} from "../../../components/button/button.component";
 import {NgIf} from "@angular/common";
@@ -10,7 +10,7 @@ import {AuthService} from "../../../services/auth.service";
   selector: 'app-forgot',
   standalone: true,
   imports: [
-    CanvasBackgroundComponent,
+    BackgroundComponent,
     ReactiveFormsModule,
     TextFieldComponent,
     ButtonComponent,

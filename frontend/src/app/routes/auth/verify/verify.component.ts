@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {CanvasBackgroundComponent} from "../../../components/canvas-background/canvas-background.component";
+import {BackgroundComponent} from "../../../components/background/background.component";
 import {ButtonComponent} from "../../../components/button/button.component";
 import {AuthService} from "../../../services/auth.service";
 import {Router} from "@angular/router";
@@ -9,7 +9,7 @@ import {NgIf} from "@angular/common";
   selector: 'app-verify',
   standalone: true,
   imports: [
-    CanvasBackgroundComponent,
+    BackgroundComponent,
     ButtonComponent,
     NgIf
   ],

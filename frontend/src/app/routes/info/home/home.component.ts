@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
-import {CanvasBackgroundComponent} from "../../../components/canvas-background/canvas-background.component";
+import {BackgroundComponent} from "../../../components/background/background.component";
 import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-home',
   standalone: true,
   imports: [
-    CanvasBackgroundComponent,
+    BackgroundComponent,
     NgOptimizedImage
   ],
   templateUrl: './home.component.html',

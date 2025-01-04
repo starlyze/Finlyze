@@ -16,11 +16,11 @@ import {isPlatformBrowser} from "@angular/common";
   selector: 'app-canvas-background',
   standalone: true,
   imports: [],
-  templateUrl: './canvas-background.component.html',
-  styleUrl: './canvas-background.component.scss'
+  templateUrl: './background.component.html',
+  styleUrl: './background.component.scss'
 })
 
-export class CanvasBackgroundComponent implements OnInit, OnDestroy {
+export class BackgroundComponent implements OnInit, OnDestroy {
   @ViewChild('canvasContainer', { static: true }) canvasContainer!: ElementRef<HTMLDivElement>;
 
   private container: HTMLDivElement | null = null;

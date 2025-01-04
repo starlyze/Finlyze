@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {CanvasBackgroundComponent} from "../../../components/canvas-background/canvas-background.component";
+import {BackgroundComponent} from "../../../components/background/background.component";
 import {Router, RouterLink} from "@angular/router";
 import {TextFieldComponent} from "../../../components/text-field/text-field.component";
 import {ButtonComponent} from "../../../components/button/button.component";
@@ -12,7 +12,7 @@ import {NgIf} from "@angular/common";
   selector: 'app-signup',
   standalone: true,
   imports: [
-    CanvasBackgroundComponent,
+    BackgroundComponent,
     RouterLink,
     TextFieldComponent,
     ButtonComponent,

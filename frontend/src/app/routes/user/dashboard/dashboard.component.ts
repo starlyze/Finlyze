@@ -15,6 +15,7 @@ import {GraphComponent} from "../../../components/graph/graph.component";
 export class DashboardComponent {
   @Input() token: string;
   username: string | null = null;
+  data: any = [[0, 0], [1, 2], [2, 1]];
 
   constructor(private router: Router, private authService: AuthService) {
     this.username = this.authService.username;

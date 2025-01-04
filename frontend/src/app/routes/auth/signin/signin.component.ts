@@ -1,5 +1,5 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
-import {CanvasBackgroundComponent} from "../../../components/canvas-background/canvas-background.component";
+import {BackgroundComponent} from "../../../components/background/background.component";
 import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {TextFieldComponent} from "../../../components/text-field/text-field.component";
 import {CheckboxComponent} from "../../../components/checkbox/checkbox.component";
@@ -13,7 +13,7 @@ import {NgIf} from "@angular/common";
   selector: 'app-signin',
   standalone: true,
   imports: [
-    CanvasBackgroundComponent,
+    BackgroundComponent,
     RouterLink,
     RouterLinkActive,
     TextFieldComponent,
