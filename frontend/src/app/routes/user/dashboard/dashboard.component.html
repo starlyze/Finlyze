@@ -1,7 +1,28 @@
 <main>
-  <p>dashboard works!</p>
-  <div>
-    <app-graph [data]="data"/>
+  <div class="portfolio-value">
+    <div>
+      <h2>Portfolio Value</h2>
+      <h1>${{ portfolioValue }}</h1>
+    </div>
+    <div>
+      <h2>Net Deposits</h2>
+      <h1>${{ netDeposit }}</h1>
+    </div>
+    <div>
+      <h2>Percentage Change</h2>
+      <h1 [ngClass]="{'positive': percentageChange >= 0, 'negative': percentageChange < 0}">
+        {{ percentageChange }}%
+      </h1>
+    </div>
+  </div>
+  <div class="graph">
+    <app-graph [data]="portfolioData" (hoverIndexChange)="onGraphHover($event)"/>
+  </div>
+  <div class="holdings">
+    <h1>
+      Holdings
+    </h1>
+
   </div>
 </main>
 

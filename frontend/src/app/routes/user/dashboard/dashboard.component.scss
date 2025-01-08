@@ -1,8 +1,19 @@
+@import "variables.scss";
 main {
-  padding: 1.2rem 1.5rem;
-  div {
-    //background-color: red;
-    height: 40rem;
+  overflow: hidden;
+  div.portfolio-value {
+    display: flex;
+    justify-content: space-between;
+    padding: 2rem 2rem 0 2rem;
+    .positive {
+      color: $primary-green;
+    }
+    .negative {
+      color: $primary-red;
+    }
+  }
+  div.graph {
+    height: max(20rem, 60vh);
     width: 100%;
   }
 }
