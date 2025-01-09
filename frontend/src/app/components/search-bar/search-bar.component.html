@@ -1,21 +1,15 @@
-<div>
-    <div id="main">
-        <input type="text" (keyup)="searchStocks($event)" name="ticker" placeholder="Enter ticker"/>
-        
-        
-    </div>
-  <div *ngIf="error" class="error">{{ error }}</div>
-
-  <div *ngIf="stocks.length >0" class="results">
-    <h2>Results</h2>
-      <p *ngFor="let stock of stocks">
-        <strong>{{ stock.symbol }}</strong>: {{ stock.name }}
-      </p>
-  </div>
-
-  <div *ngIf="!isLoading && stocks.length === 0 && !error">
-    <p>No results found.</p>
-  </div>
+<input type="text" (keyup)="searchStocks($event)" name="ticker" placeholder="Enter ticker" autocomplete="off"/>
+<div *ngIf="stocks.length > 0" class="results">
+  <a [routerLink]="'/dashboard/stock?symbol=' + stock.symbol" *ngFor="let stock of stocks">
+    <h2>
+      {{ stock.symbol }}
+    </h2>
+    {{ stock.name }}
+  </a>
+</div>
+<div *ngIf="error" class="error">{{ error }}</div>
+<div class="error" *ngIf="stocks.length === 0 && !error && query !== ''">
+  No results found.
 </div>
 
 

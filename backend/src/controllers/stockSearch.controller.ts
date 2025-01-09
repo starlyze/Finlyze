@@ -5,16 +5,12 @@ export const searchStocks = async (req: any, res:any) => {
     try {
       const listings = await Listing.aggregate([
         {
-            $search: {
-                index: "stocks",
-                text: {
-                    query: ticker,
-                    path: ["symbol", "name"]
-                }
-            }
+          $match: {
+            symbol: { $regex: `^${ticker}`, $options: 'i' }
+          }
         },
         {
-            $limit: 10
+          $limit: 10
         }
       ]);
       res.status(200).json(listings);

@@ -17,6 +17,7 @@ import {GoalsComponent} from "./routes/user/goals/goals.component";
 import {BudgetComponent} from "./routes/user/budget/budget.component";
 import {ProfileComponent} from "./routes/user/profile/profile.component";
 import {SettingsComponent} from "./routes/user/settings/settings.component";
+import {StockComponent} from "./routes/user/stock/stock.component";
 
 export const routes: Routes = [
   {
@@ -45,7 +46,8 @@ export const routes: Routes = [
       { path: 'goals', component: GoalsComponent },
       { path: 'budget', component: BudgetComponent },
       { path: 'profile', component: ProfileComponent },
-      { path: 'settings', component: SettingsComponent }
+      { path: 'settings', component: SettingsComponent },
+      { path: 'stock', component: StockComponent }
     ]
   },
   { path: '**', redirectTo: '' }
