@@ -14,7 +14,8 @@ input {
     display:flex;
     align-content:center;
     
-    svg {
+    #searchButton {
         margin-left:10px;
+        background-color:transparent;
     }
 }

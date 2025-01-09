@@ -1,7 +1,7 @@
 import { Listing } from '../models/listing.model';
 
 export const searchStocks = async (req: any, res:any) => {
-    const {ticker} = req.body;
+    const ticker = req.query.symbol;
     try {
       const listings = await Listing.aggregate([
         {
