@@ -10,7 +10,15 @@ input {
     font-size:30px;
     
 }
-#main{
+.stock {
+  padding: 20px 20px 20px 20px;
+  background-color:white;
+  color:black;
+  border-radius: 10px;
+  width: 50%;
+  line-height:30px;
+}
+#main {
     display:flex;
     align-content:center;
     

@@ -8,9 +8,10 @@
 
   <div *ngIf="stocks.length >0" class="results">
     <h2>Results</h2>
-      <p *ngFor="let stock of stocks">
-        <strong>{{ stock.symbol }}</strong>: {{ stock.name }}
-      </p>
+    <p class="stock" *ngFor="let stock of stocks">
+      <strong>{{ stock.symbol }}</strong> <br>
+      {{ stock.name }}
+    </p >
   </div>
 
   <div *ngIf="!isLoading && stocks.length === 0 && !error">
