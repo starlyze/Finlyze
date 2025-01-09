@@ -8,10 +8,16 @@
 
   <div *ngIf="stocks.length >0" class="results">
     <h2>Results</h2>
-    <p class="stock" *ngFor="let stock of stocks">
-      <strong>{{ stock.symbol }}</strong> <br>
-      {{ stock.name }}
-    </p >
+    <div class="stock" *ngFor="let stock of stocks">
+      <p class="stocktitle">
+        <span><strong>{{ stock.symbol }}</strong></span> 
+        <span style="color:gray">{{ stock.exchange }}</span>
+      </p>
+      <p>
+        {{ stock.name }}
+      </p>
+      
+    </div>
   </div>
 
   <div *ngIf="!isLoading && stocks.length === 0 && !error">
