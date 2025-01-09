@@ -6,7 +6,7 @@ import {
   googleAuthRedirectUri,
   jwtSecret,
 } from "../config/secrets";
-import User from '../models/userModel';
+import User from '../models/user.model';
 import {sendMail} from "../utils/sendMail";
 import jwt, {JwtPayload} from "jsonwebtoken";
 import {OAuth2Client} from "google-auth-library";

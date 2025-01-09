@@ -1,8 +1,9 @@
 import express from "express";
 import {connectDB} from "./config/db";
 import {frontendURL, PORT, sendgridApiKey} from './config/secrets'
-import authRoutes from "./routes/authRoutes";
-import userDataRoutes from "./routes/userDataRoutes";
+import authRoutes from "./routes/auth.routes";
+import userDataRoutes from "./routes/userData.routes";
+import stockSearchRoutes from "./routes/stockSearch.routes";
 import cors from 'cors'
 
 async function main() {
@@ -21,6 +22,7 @@ async function main() {
   await connectDB();
   app.use('/', authRoutes);
   app.use('/', userDataRoutes);
+  app.use('/', stockSearchRoutes);
   app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
 }
 

@@ -11,6 +11,5 @@ const dataSchema = new mongoose.Schema({
   expenses: [itemSchema],
 });
 
-const dataModel = mongoose.model('Data', dataSchema);
-export const itemModel = mongoose.model('Item', dataSchema);
-export default dataModel;
+export const Data = mongoose.model('Data', dataSchema);
+export const Item = mongoose.model('Item', dataSchema);

@@ -8,7 +8,7 @@ import {
   changePassword,
   googleSignin,
   googleCallback, sendVerificationEmail, fetchUserData
-} from "../controllers/authController";
+} from "../controllers/auth.controller";
 
 const router = express.Router();
 

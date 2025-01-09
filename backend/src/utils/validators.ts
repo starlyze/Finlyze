@@ -1,4 +1,4 @@
-import User from '../models/userModel';
+import User from '../models/user.model';
 import bcrypt from "bcrypt";
 
 const usernameRegex = /^[a-zA-Z0-9._-]{3,20}$/;

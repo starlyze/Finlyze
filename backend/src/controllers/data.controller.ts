@@ -1,15 +1,14 @@
-import dataModel from '../models/userDataModel';
-import {itemModel} from '../models/userDataModel';
+import { Data, Item } from '../models/userData.model';
 
 export const addUser = async (req: any, res:any) => {
   const {username} = req.body;
   try {
-    const existingUser = await dataModel.findOne({ username });
+    const existingUser = await Data.findOne({ username });
 
     if (existingUser) {
       return res.status(400).json({ error: 'Username already exists' });
     }
-    const newUser = new dataModel(req.body);
+    const newUser = new Data(req.body);
     newUser.save();
     res.status(200).json({success:true, message:"Successfully saved new user"});
   }
@@ -20,9 +19,9 @@ export const addUser = async (req: any, res:any) => {
 
 export const addIncome = async (req: any, res: any) => {
     const {userId} = req.params;
-    const newData = new itemModel(req.body);
+    const newData = new Item(req.body);
     try {
-      const result = await dataModel.findByIdAndUpdate(
+      const result = await Data.findByIdAndUpdate(
         userId,
         { $push: { income: newData } },
         { new: true }
@@ -35,7 +34,7 @@ export const addIncome = async (req: any, res: any) => {
 export const removeIncome = async (req: any, res: any) => {
     const { userId, incomeId} = req.params;
     try {
-        const result = await dataModel.findByIdAndUpdate(
+        const result = await Data.findByIdAndUpdate(
             userId, 
             { $pull: { income: { _id: incomeId } } },
             { new: true }
@@ -48,9 +47,9 @@ export const removeIncome = async (req: any, res: any) => {
 export const addExpense = async (req: any, res: any) => {
   const {userId} = req.params;
   const { item } = req.body;
-  const newData = new itemModel(item);
+  const newData = new Item(item);
   try {
-    const result = await dataModel.findByIdAndUpdate(
+    const result = await Data.findByIdAndUpdate(
       userId,
       { $push: { expense: newData } },
       { new: true }
@@ -63,7 +62,7 @@ export const addExpense = async (req: any, res: any) => {
 export const removeExpense = async (req: any, res: any) => {
   const { userId, incomeId} = req.params;
   try {
-      const result = await dataModel.findByIdAndUpdate(
+      const result = await Data.findByIdAndUpdate(
           userId, 
           { $pull: { expense: { _id: incomeId } } },
           { new: true }
