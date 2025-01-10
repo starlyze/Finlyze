@@ -1,1 +1,20 @@
-<p>stock works!</p>
+<main>
+  <div class="info">
+    <div class="left">
+      <h1>{{ symbol }}</h1>
+      <h2>{{ name }}</h2>
+      <h3>{{ exchange }}</h3>
+    </div>
+    <div class="right">
+      <h1 *ngIf="price">${{ price }}</h1>
+      <h2 *ngIf="percentDiff" [ngClass]="percentDiff && percentDiff>=0?'positive':'negative'">{{ percentDiff }}%</h2>
+      <h3 *ngIf="date">{{ date }}</h3>
+    </div>
+  </div>
+  <div class="graph">
+    <app-graph [data]="data" (hoverIndexChange)="onGraphHover($event)" />
+  </div>
+  <div class="menu">
+    <app-graph-menu (activeChange)="onMenuChange($event)"/>
+  </div>
+</main>

@@ -1,10 +1,13 @@
 <input type="text" (keyup)="searchStocks($event)" name="ticker" placeholder="Enter ticker" autocomplete="off"/>
 <div *ngIf="stocks.length > 0" class="results">
-  <a [routerLink]="'/dashboard/stock?symbol=' + stock.symbol" *ngFor="let stock of stocks">
-    <h2>
-      {{ stock.symbol }}
-    </h2>
-    {{ stock.name }}
+  <a routerLink="/dashboard/stock" [queryParams]="{id: stock._id}" *ngFor="let stock of stocks">
+    <div>
+      <h2>
+        {{ stock.symbol }}
+      </h2>
+      {{ stock.name }}
+    </div>
+    <span>{{ stock.exchange }}</span>
   </a>
 </div>
 <div *ngIf="error" class="error">{{ error }}</div>

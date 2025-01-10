@@ -7,20 +7,24 @@ import {
   Input,
   input,
   Output,
-  EventEmitter
+  EventEmitter, OnChanges
 } from '@angular/core';
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-graph',
   standalone: true,
-  imports: [],
+  imports: [
+    NgIf
+  ],
   templateUrl: './graph.component.html',
   styleUrl: './graph.component.scss'
 })
-export class GraphComponent implements OnInit {
+export class GraphComponent implements OnChanges, OnInit {
   @Input() data: any;
-  @Input() density: number;
+  @Input() relative: boolean = false;
   @Output() hoverIndexChange = new EventEmitter<number>();
+  minDataLength: number = 2;
   private maxX: number = -Infinity;
   private maxY: number = -Infinity;
   private minX: number = Infinity;
@@ -36,7 +40,7 @@ export class GraphComponent implements OnInit {
   private context: CanvasRenderingContext2D;
 
   @HostListener('window:resize', ['$event'])
-  onResize(event: Event) {
+  onResize() {
     this.canvas.width = this.container.clientWidth;
     this.canvas.height = this.container.clientHeight;
     this.drawGraph();
@@ -48,48 +52,59 @@ export class GraphComponent implements OnInit {
     this.canvas.width = this.container.clientWidth;
     this.canvas.height = this.container.clientHeight;
     this.container.appendChild(this.canvas);
-    if (this.data.length > 0) {
-      this.minX = this.data[0][0];
-      this.maxX = this.data[this.data.length-1][0];
-      for (let i = 0; i < this.data.length; i++) {
-        if (this.data[i][1] > this.maxY) {
-          this.maxY = this.data[i][1];
-        }
-        if (this.data[i][1] < this.minY) {
-          this.minY = this.data[i][1];
-        }
-      }
-    }
     this.context = this.canvas.getContext('2d', {willReadFrequently: true})!;
-    this.drawGraph();
     this.container.addEventListener('mouseover', () => {
       this.hovered = true;
       this.hoverIndex = -1;
     });
     this.container.addEventListener('mouseout', () => {
       this.hovered = false;
-      this.hoverIndexChange.emit(this.data.length-1);
-      this.context.putImageData(this.savedState, 0, 0);
+      if (this.data.length > this.minDataLength) {
+        this.hoverIndexChange.emit(this.data.length-1);
+        this.context.putImageData(this.savedState, 0, 0);
+      }
     });
     this.container.addEventListener('mousemove', (event) => {
       if (this.hovered) {
         this.drawHover(event.offsetX);
       }
-    })
+    });
+    if (this.data.length > this.minDataLength) {
+      this.drawGraph();
+    }
+  }
+
+  ngOnChanges() {
+    this.minX = this.data[0][0];
+    this.maxX = this.data[this.data.length-1][0];
+    this.minY = Infinity;
+    this.maxY = -Infinity;
+    for (let i = 0; i < this.data.length; i++) {
+      if (this.data[i][1] > this.maxY) {
+        this.maxY = this.data[i][1];
+      }
+      if (this.data[i][1] < this.minY) {
+        this.minY = this.data[i][1];
+      }
+    }
+    if (this.context) {
+      this.drawGraph();
+    }
   }
   drawHover(x: number): void {
+    if (this.data.length <= this.minDataLength) return;
     let newIndex = 0;
     for (let i = 0, minDiff = Infinity; i < this.data.length; i++) {
-      if (minDiff > Math.abs((this.data[i][0] - this.minX)/(this.maxX - this.minX) * this.container.clientWidth - x)) {
-          minDiff = Math.abs((this.data[i][0] - this.minX)/(this.maxX - this.minX) * this.container.clientWidth - x);
+      const currentDiff = Math.abs(this.transformData(i)[0] - x);
+      if (minDiff > currentDiff) {
+          minDiff = currentDiff;
           newIndex = i;
       } else break;
     }
     if (newIndex == this.hoverIndex) return;
     this.hoverIndex = newIndex;
     this.hoverIndexChange.emit(this.hoverIndex);
-    const point = this.data[this.hoverIndex];
-    const transformedPoint = this.transformData(point[0], point[1]);
+    const transformedPoint = this.transformData(this.hoverIndex);
     this.context.putImageData(this.savedState, 0, 0);
     this.context.beginPath();
     this.context.arc(transformedPoint[0], transformedPoint[1], 5, 0, Math.PI * 2);
@@ -120,19 +135,26 @@ export class GraphComponent implements OnInit {
   }
   drawSpline(): void {
     if (this.data.length < 2) return;
-    const p = this.transformData(this.data[0][0], this.data[0][1]);
+    const p = this.transformData(0);
     this.context.moveTo(p[0], p[1]);
     for (let i = 0; i < this.data.length-1; i++) {
-      const p0 = this.transformData(this.data[i][0], this.data[i][1]);
-      const p1 = this.transformData(this.data[i+1][0], this.data[i+1][1]);
+      const p0 = this.transformData(i);
+      const p1 = this.transformData(i+1);
       const midX = (p0[0] + p1[0]) / 2;
       this.context.bezierCurveTo(midX, p0[1], midX, p1[1], p1[0], p1[1]);
     }
   }
-  transformData(x: number, y: number): number[] {
-    return [
-      (x - this.minX)/(this.maxX - this.minX) * this.container.clientWidth,
-      this.maxY-this.minY?this.container.clientHeight - (y - this.minY)/(this.maxY - this.minY) * (this.container.clientHeight - 100) - 50:this.container.clientHeight/2
-    ];
+  transformData(index: number): number[] {
+    if (this.relative) {
+      return [
+        (this.data[index][0] - this.minX)/(this.maxX - this.minX) * this.container.clientWidth,
+        this.maxY-this.minY?this.container.clientHeight - (this.data[index][1] - this.minY)/(this.maxY - this.minY) * (this.container.clientHeight - 100) - 50:this.container.clientHeight/2
+      ];
+    } else {
+      return [
+        index/(this.data.length-1) * this.container.clientWidth,
+        this.maxY-this.minY?this.container.clientHeight - (this.data[index][1] - this.minY)/(this.maxY - this.minY) * (this.container.clientHeight - 100) - 50:this.container.clientHeight/2
+      ];
+    }
   }
 }

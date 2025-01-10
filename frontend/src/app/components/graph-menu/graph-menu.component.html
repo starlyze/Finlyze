@@ -1,0 +1,8 @@
+<div class="graph-interval">
+  <div [ngClass]="active==0?'active':''" (click)="setActive(0)">1D</div>
+  <div [ngClass]="active==1?'active':''" (click)="setActive(1)">1W</div>
+  <div [ngClass]="active==2?'active':''" (click)="setActive(2)">1M</div>
+  <div [ngClass]="active==3?'active':''" (click)="setActive(3)">3M</div>
+  <div [ngClass]="active==4?'active':''" (click)="setActive(4)">1Y</div>
+  <div [ngClass]="active==5?'active':''" (click)="setActive(5)">5Y</div>
+</div>

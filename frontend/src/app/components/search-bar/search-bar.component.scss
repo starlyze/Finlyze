@@ -16,14 +16,21 @@ input:focus {
 }
 div.results {
   a {
-    display: block;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     padding: 1rem 1rem 1rem 1rem;
     border-bottom: $text 1px solid;
     color: $text;
     text-decoration: none;
     transition: 0.2s ease-in-out;
-    h2 {
-      margin-top: 0;
+    div {
+      h2 {
+        margin-top: 0;
+      }
+    }
+    span {
+      color: $text-dark;
     }
   }
 }

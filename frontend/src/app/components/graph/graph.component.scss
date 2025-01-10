@@ -1,5 +1,16 @@
+@import 'variables.scss';
 div {
   position: relative;
   width: 100%;
   height: 100%;
+  h2 {
+    width: 80%;
+    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 2rem;
+    color: $text-dark;
+  }
 }

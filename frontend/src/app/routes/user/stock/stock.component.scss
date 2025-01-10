@@ -1,0 +1,41 @@
+@import 'variables.scss';
+main {
+  width: 100%;
+  overflow-x: hidden;
+  div.info {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 2rem 2rem 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    h1 {
+      margin-bottom: 0;
+    }
+    h2 {
+      margin-top: 0.5rem;
+    }
+    h3 {
+      font-weight: 200;
+      color: $text-dark;
+    }
+    div.right {
+      text-align: right;
+      .positive {
+        color: $primary-green
+      }
+      .negative {
+        color: $primary-red;
+      }
+    }
+  }
+  div.graph {
+    width: 100%;
+    height: max(25rem, 55vh);
+  }
+  div.menu {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+  }
+}
