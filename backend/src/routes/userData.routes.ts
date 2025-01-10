@@ -1,13 +1,13 @@
 import express from 'express';
 
-import {addExpense, addIncome, removeExpense, removeIncome, addUser} from '../controllers/data.controller';
+import {addExpense, addIncome, removeExpense, removeIncome, getTransactions} from '../controllers/userData.controller';
 
 const router = express.Router();
 
-router.post('/api/users/', addUser);
-router.post('/api/expenses/:userId', addExpense);
-router.delete('/api/expenses/:userId/:expenseId', removeExpense);
-router.post('/api/income/:userId', addIncome);
-router.delete('/api/income/:userId/:incomeId', removeIncome);
+router.post('/api/transactions/expense', addExpense);
+router.delete('/api/transactions/expense', removeExpense);
+router.post('/api/transactions/income', addIncome);
+router.delete('/api/transactions/income', removeIncome);
+router.post('/api/transactions', getTransactions); 
 
 export default router;

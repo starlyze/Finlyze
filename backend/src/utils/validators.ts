@@ -1,4 +1,4 @@
-import User from '../models/user.model';
+import { User } from '../models/user.model';
 import bcrypt from "bcrypt";
 
 const usernameRegex = /^[a-zA-Z0-9._-]{3,20}$/;
@@ -23,7 +23,7 @@ export const validateSignup = async (data: any) => {
       if (existingUser) {
         errors.email = "Email is already in use.";
       }
-    } catch (error) {
+    } catch (error) { 
       errors.server = "Internal Server Error";
     }
   }

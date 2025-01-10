@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.sendgridApiKey = exports.googleAuthRedirectUri = exports.googleAuthClientSecret = exports.googleAuthClientId = exports.mailerPassword = exports.frontendURL = exports.PORT = exports.mongoURI = exports.jwtSecret = void 0;
+require('dotenv').config();
+exports.jwtSecret = process.env.JWT_SECRET;
+exports.mongoURI = process.env.MONGO_URI;
+exports.PORT = process.env.PORT;
+exports.frontendURL = process.env.FRONTEND_URL;
+exports.mailerPassword = process.env.MAILER_PASSWORD;
+exports.googleAuthClientId = process.env.GOOGLE_OAUTH_CLIENT_ID;
+exports.googleAuthClientSecret = process.env.GOOGLE_OAUTH_CLIENT_SECRET;
+exports.googleAuthRedirectUri = process.env.GOOGLE_OAUTH_REDIRECT_URI;
+exports.sendgridApiKey = process.env.SENDGRID_API_KEY;
