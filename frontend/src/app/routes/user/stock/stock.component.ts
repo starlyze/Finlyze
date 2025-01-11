@@ -46,6 +46,10 @@ export class StockComponent implements OnInit {
       }
     });
   }
+  onMenuChange(index: number) {
+    this.interval = index;
+    this.getGraphData();
+  }
   onGraphHover(index: number) {
     if (index == this.data.length - 1) {
       this.date = 'Now';
@@ -53,9 +57,5 @@ export class StockComponent implements OnInit {
     else this.date = new Date (this.data[index][0]).toLocaleString();
     this.price = this.data[index][1];
     this.percentDiff = Math.round(10000 * (this.data[index][1]/this.data[0][1] - 1))/100;
-  }
-  onMenuChange(index: number) {
-    this.interval = index;
-    this.getGraphData();
   }
 }

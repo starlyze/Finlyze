@@ -75,6 +75,7 @@ export class GraphComponent implements OnChanges, OnInit {
   }
 
   ngOnChanges() {
+    if (this.data.length <= this.minDataLength) return
     this.minX = this.data[0][0];
     this.maxX = this.data[this.data.length-1][0];
     this.minY = Infinity;
@@ -93,13 +94,15 @@ export class GraphComponent implements OnChanges, OnInit {
   }
   drawHover(x: number): void {
     if (this.data.length <= this.minDataLength) return;
-    let newIndex = 0;
-    for (let i = 0, minDiff = Infinity; i < this.data.length; i++) {
-      const currentDiff = Math.abs(this.transformData(i)[0] - x);
-      if (minDiff > currentDiff) {
+    let newIndex = Math.round(x * (this.data.length-1) / this.container.clientWidth);
+    if (this.relative) {
+      for (let i = 0, minDiff = Infinity; i < this.data.length; i++) {
+        const currentDiff = Math.abs(this.transformData(i)[0] - x);
+        if (minDiff > currentDiff) {
           minDiff = currentDiff;
           newIndex = i;
-      } else break;
+        } else break;
+      }
     }
     if (newIndex == this.hoverIndex) return;
     this.hoverIndex = newIndex;

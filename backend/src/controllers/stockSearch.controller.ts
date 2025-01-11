@@ -71,7 +71,9 @@ export const getStockData = async (req: any, res:any) => {
       start: start.toISOString(),
       end: end.toISOString(),
       timeframe: intervals[interval].timeframe,
+      adjustment: 'split'
     });
+    // console.log(lastBar);
     const got = [];
     for await (let bar of bars) {
       if (!bar) continue;
